@@ -42,6 +42,23 @@
   button:hover {
     background-color: #0056b3;
   }
+
+  /* Estilos do botão de voltar */
+.btn-voltar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-voltar:hover {
+    background-color: #0056b3;
+}
 </style>
 </head>
 <body>
@@ -50,6 +67,9 @@
   <p>Olá, tudo bem? <br><br> Após análise, não localizamos a proposta em sistema. Caso a contratação seja recente, peço que aguarde o prazo de 07 a 10 dias úteis para emissão em sistema. Após a emissão, gentileza registar nova solicitação para que possamos realizar o cancelamento.  <br><br> Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!</p>
 
   <button onclick="copiarTexto()">Copiar Texto</button>
+
+  <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btn-voltar" id="btnVoltar">Voltar</button></a>
+
 </div>
 
 <script>
@@ -62,6 +82,5 @@
     });
   }
 </script>
-
 </body>
 </html>

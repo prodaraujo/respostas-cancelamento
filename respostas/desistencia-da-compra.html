@@ -67,6 +67,25 @@
   font-size: 14px;
 }
 
+#btnVoltar {
+    position:static;
+    margin-top: 20px;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#btnVoltar:hover {
+    background-color: #0056b3;
+}
+
   .checkbox-input {
     margin-right: 8px; /* Espaçamento entre a checkbox e o texto do label */
     margin-top: 3px;
@@ -124,6 +143,9 @@
   <textarea id="textoResultado" readonly></textarea>
 
   <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
+
+  <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btn-voltar" id="btnVoltar">Voltar</button></a>
+
 </div>
 
 <script>
@@ -188,6 +210,5 @@
     preencherDataCancelamento();
   }
 </script>
-
 </body>
 </html>

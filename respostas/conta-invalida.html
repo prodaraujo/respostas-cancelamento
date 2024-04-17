@@ -59,7 +59,6 @@
   button:hover {
     background-color: #0056b3;
   }
-
   .checkbox-label {
   display: inline-flex;
   align-items: center;
@@ -88,6 +87,25 @@
     margin-top: 5px; /* Reduzindo a margem superior do botão de cópia */
     margin-bottom: 0; /* Removendo a margem inferior do botão de cópia */
   }
+
+  #btnVoltar {
+    position:static;
+    margin-top: 20px;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#btnVoltar:hover {
+    background-color: #0056b3;
+}
 </style>
 </head>
 <body>
@@ -117,6 +135,9 @@
   <textarea id="textoResultado" readonly></textarea>
 
   <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
+
+  <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btn-voltar" id="btnVoltar">Voltar</button></a>
+
 </div>
 
 <script>
