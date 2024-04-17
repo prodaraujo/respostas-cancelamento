@@ -93,6 +93,19 @@
     margin-top: 3px;
     margin-bottom: 2px;
 }
+
+.checkbox-label1 {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+  .checkbox-input1 {
+    margin-right: 8px; /* Espaçamento entre a checkbox e o texto do label */
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
   #textoResultado {
     width: 100%;
     padding: 8px;
@@ -128,17 +141,32 @@
   <label for="valorDevido">Valor Devido:</label>
   <input type="text" id="valorDevido" placeholder="Digite o valor devido">
 
-  <label class="checkbox-label for="proporcionalCheckbox">
+  <label class="checkbox-label" for="proporcionalCheckbox">
     <input type="checkbox" id="proporcionalCheckbox" class="checkbox-input">
     Proporcional
   </label>
   
-
   <label for="agencia">Agência:</label>
   <input type="text" id="agencia" placeholder="Digite o número da agência">
 
   <label for="conta">Conta:</label>
   <input type="text" id="conta" placeholder="Digite o número da conta">
+
+  <label class="checkbox-label1" for="programacaoCheckbox">
+    <input type="checkbox" id="programacaoCheckbox" class="checkbox-input1">
+    Programação
+  </label>
+
+  <div id="programacaoCondicao">
+    <label for="parcela">Parcela:</label>
+    <input type="number" id="parcela" placeholder="Digite o número da parcela">
+
+    <label for="dataProgramacao">Data da programação:</label>
+    <input type="date" id="dataProgramacao">
+
+    <label for="valorProgramacao">Valor da programação:</label>
+    <input type="text" id="valorProgramacao" placeholder="Digite o valor da programação">
+  </div>  
 
   <label for="dataContratacao">Data de contratação:</label>
   <input type="date" id="dataContratacao">
@@ -160,6 +188,14 @@
 </div>
 
 <script>
+
+  function ocultarProgramacao() {
+    var label = document.getElementById("programacaoCondicao");
+    label.style.display = "none";
+  }
+
+  ocultarProgramacao();
+
   function preencherDataCancelamento() {
     var dataCancelamentoInput = document.getElementById("dataCancelamento");
     var dataAtual = new Date();
@@ -185,11 +221,22 @@
     var agenciaContratacao = document.getElementById("agenciaContratacao").value;
     var telefone = document.getElementById("telefone").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
+    var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
+    var parcela = document.getElementById("parcela").value;
+    var dataProgramacaoInput = document.getElementById("dataProgramacao").value;
+    var dataProgramacao = new Date(dataProgramacaoInput).value;
+    var valorProgramacao = document.getElementById("valorProgramacao").value;
+    var programacaoCondicao = document.getElementById("programacaoCondicao").value
 
     var dia = String(dataCancelamento.getDate() + 1).padStart(2, '0');
     var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
     var ano = dataCancelamento.getFullYear();
     var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
+
+    var dia = String(dataProgramacao.getDate() + 1).padStart(2, '0');
+    var mes = String(dataProgramacao.getMonth() + 1).padStart(2, '0');
+    var ano = dataProgramacao.getFullYear();
+    var dataProgramacaoFormatada = dia + '/' + mes + '/' + ano;
 
     var dia = String(dataContratacao.getDate() + 1).padStart(2, '0');
     var mes = String(dataContratacao.getMonth() + 1).padStart(2, '0');
@@ -204,6 +251,9 @@
     }
     texto += " no valor de R$ " + valorDevido + ". ";
     texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco 104, agência " + agencia + ", conta " + conta + ".\n\n";
+    if (programacaoCheckbox) {
+    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacao +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ XXXX será efetuada em até 10 dias nos dados bancários cadastrados. "
+    }
     texto += "A contratação do seguro ocorreu em "+ dataContratacaoFormatada +", junto à AG "+ agenciaContratacao +", mediante assinatura eletrônica, via SMS por meio do telefone "+ telefone +". A assinatura da proposta caracteriza a anuência para a emissão do seguro e a concordância com as Condições Gerais, onde há a informação sobre a cobrança do produto. Assim, considerando a proposta de adesão assinada, não será realizado o ressarcimento dos valores pagos no período de vigência do seguro. \n\n";
     texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
 
@@ -229,6 +279,7 @@
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
+    document.getElementById("programacaoCheckbox").checked = false;
 
     // Preencher a data de cancelamento com a data atual
     preencherDataCancelamento();
