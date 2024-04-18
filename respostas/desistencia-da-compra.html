@@ -61,14 +61,8 @@
     background-color: #0056b3;
   }
 
-  .checkbox-label {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-#btnVoltar {
+  /* Estilos do botão de voltar */
+  #btnVoltar {
     position:static;
     margin-top: 20px;
     top: 20px;
@@ -83,8 +77,15 @@
     transition: background-color 0.3s ease;
 }
 
-#btnVoltar:hover {
-    background-color: #0056b3;
+  #btnVoltar:hover {
+      background-color: #0056b3;
+  }
+
+  .checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
 }
 
   .checkbox-input {
@@ -92,6 +93,24 @@
     margin-top: 3px;
     margin-bottom: 2px;
 }
+
+.checkbox-label1 {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+  .checkbox-input1 {
+    margin-right: 8px; /* Espaçamento entre a checkbox e o texto do label */
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
+
+  .hidden {
+    display: none;
+  }
+
   #textoResultado {
     width: 100%;
     padding: 8px;
@@ -107,6 +126,27 @@
   .btn-copy {
     margin-top: 5px; /* Reduzindo a margem superior do botão de cópia */
     margin-bottom: 0; /* Removendo a margem inferior do botão de cópia */
+  }
+
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .mensagemCopiado {
+    position:fixed;
+    display: none;
+    background-color: rgb(69, 148, 69);
+    color: #fff;
+    border-radius: 2px;
+    border-color: #fff;
+    border-spacing: 10px;
+    padding: 2px 104px 5px 104px;
+    margin: 0px 0px 800px 0px;
+    font-weight: 600;
+    font-size: 15pt;
+    z-index: 9999;
+    animation: fade-in 0.5s ease-out; /* Adicionando a animação */
   }
 </style>
 </head>
@@ -127,11 +167,13 @@
   <label for="valorDevido">Valor Devido:</label>
   <input type="text" id="valorDevido" placeholder="Digite o valor devido">
 
-  <label class="checkbox-label for="proporcionalCheckbox">
+  <label class="checkbox-label" for="proporcionalCheckbox">
     <input type="checkbox" id="proporcionalCheckbox" class="checkbox-input">
     Proporcional
   </label>
   
+  <label for="banco">Banco:</label>
+  <input type="number" id="banco">
 
   <label for="agencia">Agência:</label>
   <input type="text" id="agencia" placeholder="Digite o número da agência">
@@ -139,17 +181,45 @@
   <label for="conta">Conta:</label>
   <input type="text" id="conta" placeholder="Digite o número da conta">
 
+  <label class="checkbox-label1" for="programacaoCheckbox">
+    <input type="checkbox" id="programacaoCheckbox" class="checkbox-input1">
+    Programação
+  </label>
+
+  <div id="programacaoCondicao" class="hidden">
+    <label for="parcela">Parcela:</label>
+    <input type="number" id="parcela" placeholder="Digite o número da parcela">
+
+    <label for="dataProgramacao">Data da programação:</label>
+    <input type="date" id="dataProgramacao">
+
+    <label for="valorProgramacao">Valor da programação:</label>
+    <input type="text" id="valorProgramacao" placeholder="Digite o valor da programação">
+  </div>  
+
   <button onclick="gerarTexto()">Gerar Texto</button>
 
-  <textarea id="textoResultado" readonly></textarea>
+  <textarea id="textoResultado" placeholder="Aqui vai o texto gerado" readonly></textarea>
 
   <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
 
-  <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btn-voltar" id="btnVoltar">Voltar</button></a>
+  <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btnVoltar" id="btnVoltar">Voltar</button></a>
 
 </div>
 
+<div id="copiedMessage" class="mensagemCopiado">Texto copiado!</div>
+
 <script>
+
+  document.getElementById("programacaoCheckbox").addEventListener("change", function() {
+        var conteudoDiv = document.getElementById("programacaoCondicao");
+        if (this.checked) {
+            conteudoDiv.classList.remove("hidden");
+        } else {
+            conteudoDiv.classList.add("hidden");
+        }  
+    });
+
   function preencherDataCancelamento() {
     var dataCancelamentoInput = document.getElementById("dataCancelamento");
     var dataAtual = new Date();
@@ -162,20 +232,38 @@
 
   preencherDataCancelamento();
 
+  function preencherBanco() {
+    var bancoInput = document.getElementById("banco");
+    bancoInput.value = 104;
+  }
+
+  preencherBanco();
+
   function gerarTexto() {
     var certificado = document.getElementById("certificado").value;
     var produto = document.getElementById("produto").value;
     var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
     var dataCancelamento = new Date(dataCancelamentoInput);
     var valorDevido = document.getElementById("valorDevido").value;
+    var banco = document.getElementById("banco").value;
     var agencia = document.getElementById("agencia").value;
     var conta = document.getElementById("conta").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
+    var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
+    var parcela = document.getElementById("parcela").value;
+    var dataProgramacaoInput = document.getElementById("dataProgramacao").value;
+    var dataProgramacao = new Date(dataProgramacaoInput);
+    var valorProgramacao = document.getElementById("valorProgramacao").value;
 
     var dia = String(dataCancelamento.getDate() + 1).padStart(2, '0');
     var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
     var ano = dataCancelamento.getFullYear();
     var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
+
+    var dia = String(dataProgramacao.getDate() + 1).padStart(2, '0');
+    var mes = String(dataProgramacao.getMonth() + 1).padStart(2, '0');
+    var ano = dataProgramacao.getFullYear();
+    var dataProgramacaoFormatada = dia + '/' + mes + '/' + ano;
 
     var texto = "Olá, tudo bem?\n\n";
     texto += "O seu seguro com certificado " + certificado + ", do produto " + produto + " foi cancelado. ";
@@ -184,7 +272,10 @@
       texto += " proporcional";
     }
     texto += " no valor de R$ " + valorDevido + ". ";
-    texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco 104, agência " + agencia + ", conta " + conta + ".\n\n";
+    texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
+    if (programacaoCheckbox) {
+    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacaoFormatada +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ "+ valorProgramacao +" será efetuada em até 10 dias nos dados bancários cadastrados.\n\n "
+    }
     texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
 
     document.getElementById("textoResultado").value = texto;
@@ -195,7 +286,19 @@
     textoResultado.select();
     textoResultado.setSelectionRange(0, 99999); /* Para dispositivos móveis */
     document.execCommand("copy");
-    alert("Texto copiado para a área de transferência!");
+
+    // Exibir a mensagem de copiado com a classe de animação
+    var copiedMessage = document.getElementById("copiedMessage");
+    copiedMessage.style.display = "inline";
+    copiedMessage.classList.add("fade-in");
+
+    // Ocultar a mensagem após a conclusão da animação
+    setTimeout(function() {
+        copiedMessage.classList.remove("fade-in");
+        setTimeout(function() {
+            copiedMessage.style.display = "none";
+        }, 500); // Tempo da animação em milissegundos
+    }, 500); // Tempo da animação em milissegundos
 
     // Limpar os campos de entrada após copiar o texto
     document.getElementById("certificado").value = "";
@@ -203,12 +306,23 @@
     document.getElementById("valorDevido").value = "";
     document.getElementById("agencia").value = "";
     document.getElementById("conta").value = "";
+    document.getElementById("parcela").value = "";
+    document.getElementById("dataProgramacao").value = "";
+    document.getElementById("valorProgramacao").value = "";    
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
+    document.getElementById("programacaoCheckbox").checked = false;
+
+    // Limpar campo da resposta
+    document.getElementById("textoResultado").value = "";
 
     // Preencher a data de cancelamento com a data atual
     preencherDataCancelamento();
+
+    // Preencher o banco por padrão com o código 104
+    preencherBanco();
+
   }
 </script>
 </body>
