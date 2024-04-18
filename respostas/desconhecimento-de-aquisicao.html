@@ -106,6 +106,11 @@
     margin-top: 3px;
     margin-bottom: 2px;
 }
+
+  .hidden {
+    display: none;
+  }
+
   #textoResultado {
     width: 100%;
     padding: 8px;
@@ -146,6 +151,9 @@
     Proporcional
   </label>
   
+  <label for="banco">Banco:</label>
+  <input type="number" id="banco">
+
   <label for="agencia">Agência:</label>
   <input type="text" id="agencia" placeholder="Digite o número da agência">
 
@@ -157,7 +165,7 @@
     Programação
   </label>
 
-  <div id="programacaoCondicao">
+  <div id="programacaoCondicao" class="hidden">
     <label for="parcela">Parcela:</label>
     <input type="number" id="parcela" placeholder="Digite o número da parcela">
 
@@ -179,7 +187,7 @@
 
   <button onclick="gerarTexto()">Gerar Texto</button>
 
-  <textarea id="textoResultado" readonly></textarea>
+  <textarea id="textoResultado" readonly placeholder="Aqui vai o texto gerado"></textarea>
 
   <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
 
@@ -189,12 +197,14 @@
 
 <script>
 
-  function ocultarProgramacao() {
-    var label = document.getElementById("programacaoCondicao");
-    label.style.display = "none";
-  }
-
-  ocultarProgramacao();
+  document.getElementById("programacaoCheckbox").addEventListener("change", function() {
+        var conteudoDiv = document.getElementById("programacaoCondicao");
+        if (this.checked) {
+            conteudoDiv.classList.remove("hidden");
+        } else {
+            conteudoDiv.classList.add("hidden");
+        }  
+    });
 
   function preencherDataCancelamento() {
     var dataCancelamentoInput = document.getElementById("dataCancelamento");
@@ -208,25 +218,33 @@
 
   preencherDataCancelamento();
 
+  function preencherBanco() {
+    var bancoInput = document.getElementById("banco");
+    bancoInput.value = 104;
+  }
+
+  preencherBanco();
+
   function gerarTexto() {
     var certificado = document.getElementById("certificado").value;
     var produto = document.getElementById("produto").value;
     var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
     var dataCancelamento = new Date(dataCancelamentoInput);
     var valorDevido = document.getElementById("valorDevido").value;
+    var banco = document.getElementById("banco").value;
     var agencia = document.getElementById("agencia").value;
     var conta = document.getElementById("conta").value;
-    var dataContratacaoInput = document.getElementById("dataContratacao").value;
-    var dataContratacao = new Date(dataContratacaoInput);
-    var agenciaContratacao = document.getElementById("agenciaContratacao").value;
-    var telefone = document.getElementById("telefone").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
     var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
     var parcela = document.getElementById("parcela").value;
     var dataProgramacaoInput = document.getElementById("dataProgramacao").value;
-    var dataProgramacao = new Date(dataProgramacaoInput).value;
+    var dataProgramacao = new Date(dataProgramacaoInput);
     var valorProgramacao = document.getElementById("valorProgramacao").value;
-    var programacaoCondicao = document.getElementById("programacaoCondicao").value
+    var programacaoCondicao = document.getElementById("programacaoCondicao");
+    var dataContratacaoInput = document.getElementById("dataContratacao").value;
+    var dataContratacao = new Date(dataContratacaoInput);
+    var agenciaContratacao = document.getElementById("agenciaContratacao").value;
+    var telefone = document.getElementById("telefone").value;
 
     var dia = String(dataCancelamento.getDate() + 1).padStart(2, '0');
     var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
@@ -250,9 +268,9 @@
       texto += " proporcional";
     }
     texto += " no valor de R$ " + valorDevido + ". ";
-    texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco 104, agência " + agencia + ", conta " + conta + ".\n\n";
+    texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
     if (programacaoCheckbox) {
-    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacao +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ XXXX será efetuada em até 10 dias nos dados bancários cadastrados. "
+    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacaoFormatada +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ XXXX será efetuada em até 10 dias nos dados bancários cadastrados.\n\n "
     }
     texto += "A contratação do seguro ocorreu em "+ dataContratacaoFormatada +", junto à AG "+ agenciaContratacao +", mediante assinatura eletrônica, via SMS por meio do telefone "+ telefone +". A assinatura da proposta caracteriza a anuência para a emissão do seguro e a concordância com as Condições Gerais, onde há a informação sobre a cobrança do produto. Assim, considerando a proposta de adesão assinada, não será realizado o ressarcimento dos valores pagos no período de vigência do seguro. \n\n";
     texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
@@ -276,6 +294,13 @@
     document.getElementById("dataContratacao").value = "";
     document.getElementById("agenciaContratacao").value = "";
     document.getElementById("telefone").value = "";
+    document.getElementById("parcela").value = "";
+    document.getElementById("dataProgramacao").value = "";
+    document.getElementById("valorProgramacao").value = "";
+
+
+    // Limpar campo da resposta
+    document.getElementById("textoResultado").value = "";
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
@@ -283,6 +308,9 @@
 
     // Preencher a data de cancelamento com a data atual
     preencherDataCancelamento();
+
+    // Preencher o banco por padrão com o código 104
+    preencherBanco();
   }
 </script>
 </body>
