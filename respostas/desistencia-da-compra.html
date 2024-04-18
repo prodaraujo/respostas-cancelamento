@@ -182,7 +182,7 @@
   <input type="text" id="conta" placeholder="Digite o número da conta">
 
   <label class="checkbox-label1" for="programacaoCheckbox">
-    <input type="checkbox" id="programacaoCheckbox" class="checkbox-input1">
+    <input type="checkbox" id="programacaoCheckbox" class="checkbox-input1" onclick="programacao()">
     Programação
   </label>
 
@@ -210,15 +210,16 @@
 <div id="copiedMessage" class="mensagemCopiado">Texto copiado!</div>
 
 <script>
-
-  document.getElementById("programacaoCheckbox").addEventListener("change", function() {
-        var conteudoDiv = document.getElementById("programacaoCondicao");
-        if (this.checked) {
-            conteudoDiv.classList.remove("hidden");
-        } else {
-            conteudoDiv.classList.add("hidden");
-        }  
-    });
+  function programacao() {
+    document.getElementById("programacaoCheckbox").addEventListener("change", function() {
+          var conteudoDiv = document.getElementById("programacaoCondicao");
+          if (this.checked) {
+              conteudoDiv.classList.remove("hidden");
+          } else {
+              conteudoDiv.classList.add("hidden");
+          }  
+      });
+  };  
 
   function preencherDataCancelamento() {
     var dataCancelamentoInput = document.getElementById("dataCancelamento");
@@ -313,6 +314,16 @@
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
     document.getElementById("programacaoCheckbox").checked = false;
+    
+    
+    document.getElementById("programacaoCondicao").addEventListener("change", function() {
+        var conteudoDiv = document.getElementById("programacaoCondicao");
+        if (this.checked) {
+            conteudoDiv.classList.add("hidden");
+        } else {
+            conteudoDiv.classList.remove("hidden");
+        }  
+    });
 
     // Limpar campo da resposta
     document.getElementById("textoResultado").value = "";
@@ -323,6 +334,8 @@
     // Preencher o banco por padrão com o código 104
     preencherBanco();
 
+    // Ocultar dados de programação
+    programacao();
   }
 </script>
 </body>
