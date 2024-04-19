@@ -184,6 +184,12 @@
 
   <label for="parcela">Parcela:</label>
     <input type="number" id="parcela" placeholder="Digite o número da parcela">
+
+  <select id="motivo">
+    <option value="Bilhete cancelado - Restituição após cancelamento">Bilhete cancelado</option>
+    <option value="Erro SIAS">Erro SIAS</option>
+    <option value="Conta de terceiros">Conta de terceiros</option>
+  </select>
   
   <label for="banco">Banco:</label>
   <input type="number" id="banco">
@@ -216,28 +222,18 @@
 <div id="copiedMessage" class="mensagemCopiado">Texto copiado!</div>
 
 <script>
-  function programacao() {
-    document.getElementById("programacaoCheckbox").addEventListener("change", function() {
-          var conteudoDiv = document.getElementById("programacaoCondicao");
-          if (this.checked) {
-              conteudoDiv.classList.remove("hidden");
-          } else {
-              conteudoDiv.classList.add("hidden");
-          }  
-      });
-  };  
 
-  function preencherDataCancelamento() {
-    var dataCancelamentoInput = document.getElementById("dataCancelamento");
+  function preencherDataAbertura() {
+    var dataAberturaInput = document.getElementById("dataAbertura");
     var dataAtual = new Date();
     var dia = String(dataAtual.getDate()).padStart(2, '0');
     var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
     var ano = dataAtual.getFullYear();
     var dataAtualFormatada = ano + '-' + mes + '-' + dia;
-    dataCancelamentoInput.value = dataAtualFormatada;
+    dataAberturaInput.value = dataAtualFormatada;
   }
 
-  preencherDataCancelamento();
+  preencherDataAbertura();
 
   function preencherBanco() {
     var bancoInput = document.getElementById("banco");
@@ -247,43 +243,60 @@
   preencherBanco();
 
   function gerarTexto() {
-    var certificado = document.getElementById("certificado").value;
+    var canal = document.getElementById("canal").value;
+    var dataAberturaInput = document.getElementById("dataAbertura").value;
+    var dataAbertura = new Date(dataAberturaInput);
+    var favorecido = document.getElementById("favorecido").value;
+    var cpfFavorecido = document.getElementById("cpfFavorecido").value;
+    var titular = document.getElementById("titular").value;
+    var cpfTitular = document.getElementById("cpfTitular").value; 
+    var apolice = document.getElementById("apolice").value;
     var produto = document.getElementById("produto").value;
-    var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
-    var dataCancelamento = new Date(dataCancelamentoInput);
+    var certificado = document.getElementById("certificado").value;
     var valorDevido = document.getElementById("valorDevido").value;
+    var parcela = document.getElementById("parcela").value;
+    var motivo = document.getElementById("motivo").value;
     var banco = document.getElementById("banco").value;
     var agencia = document.getElementById("agencia").value;
+    var operacao = document.getElementById("operacao").value; 
     var conta = document.getElementById("conta").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
-    var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
-    var parcela = document.getElementById("parcela").value;
-    var dataProgramacaoInput = document.getElementById("dataProgramacao").value;
-    var dataProgramacao = new Date(dataProgramacaoInput);
-    var valorProgramacao = document.getElementById("valorProgramacao").value;
+    
 
-    var dia = String(dataCancelamento.getDate() + 1).padStart(2, '0');
-    var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
-    var ano = dataCancelamento.getFullYear();
-    var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
+    var dia = String(dataAbertura.getDate() + 1).padStart(2, '0');
+    var mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
+    var ano = dataAbertura.getFullYear();
+    var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
 
-    var dia = String(dataProgramacao.getDate() + 1).padStart(2, '0');
-    var mes = String(dataProgramacao.getMonth() + 1).padStart(2, '0');
-    var ano = dataProgramacao.getFullYear();
-    var dataProgramacaoFormatada = dia + '/' + mes + '/' + ano;
+    var texto = `
+      Solicitação/Tarefa: 
+      Canal: ${canal}
+      Abertura: ${dataAberturaFormatada}
 
-    var texto = "Olá, tudo bem?\n\n";
-    texto += "O seu seguro com certificado " + certificado + ", do produto " + produto + " foi cancelado. ";
-    texto += "A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
-    if (proporcionalCheckbox) {
-      texto += " proporcional";
-    }
-    texto += " no valor de R$ " + valorDevido + ". ";
-    texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
-    if (programacaoCheckbox) {
-    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacaoFormatada +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ "+ valorProgramacao +" será efetuada em até 10 dias nos dados bancários cadastrados.\n\n "
-    }
-    texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
+
+      Favorecido: ${favorecido}
+      CPF: ${cpfFavorecido}
+      Titular do seguro: ${titular}
+      CPF: ${cpfTitular}
+
+
+      Apólice: ${apolice}
+      Produto: ${produto}
+      Certificado: ${certificado}
+      Valor à restituir R$ ${valorDevido}
+      Parcela nº: ${parcela}. ${proporcionalCheckbox=checked ? "proporcional" : ""}
+
+
+      Motivo: ${motivo}
+
+
+      Dados bancários;
+
+      Banco: ${banco}
+      Ag: ${agencia}
+      Op: ${operacao}
+      Conta: ${conta}
+      `;
 
     document.getElementById("textoResultado").value = texto;
   }
@@ -308,40 +321,32 @@
     }, 500); // Tempo da animação em milissegundos
 
     // Limpar os campos de entrada após copiar o texto
-    document.getElementById("certificado").value = "";
+    document.getElementById("canal").value = "";
+    document.getElementById("favorecido").value = "";
+    document.getElementById("cpfFavorecido").value = "";
+    document.getElementById("titular").value = "";
+    document.getElementById("cpfTitular").value = "";
+    document.getElementById("apolice").value = "";
     document.getElementById("produto").value = "";
+    document.getElementById("certificado").value = "";
     document.getElementById("valorDevido").value = "";
-    document.getElementById("agencia").value = "";
-    document.getElementById("conta").value = "";
     document.getElementById("parcela").value = "";
-    document.getElementById("dataProgramacao").value = "";
-    document.getElementById("valorProgramacao").value = "";    
+    document.getElementById("agencia").value = "";
+    document.getElementById("operacao").value = "";
+    document.getElementById("conta").value = "";
+    document.getElementById("parcela").value = "";  
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
-    document.getElementById("programacaoCheckbox").checked = false;
-    
-    
-    document.getElementById("programacaoCondicao").addEventListener("change", function() {
-        var conteudoDiv = document.getElementById("programacaoCondicao");
-        if (this.checked) {
-            conteudoDiv.classList.add("hidden");
-        } else {
-            conteudoDiv.classList.remove("hidden");
-        }  
-    });
 
     // Limpar campo da resposta
     document.getElementById("textoResultado").value = "";
 
     // Preencher a data de cancelamento com a data atual
-    preencherDataCancelamento();
+    preencherDataAbertura();
 
     // Preencher o banco por padrão com o código 104
     preencherBanco();
-
-    // Ocultar dados de programação
-    programacao();
   }
 </script>
 </body>
