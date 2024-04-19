@@ -159,8 +159,8 @@
   <label for="cpfFavorecido">CPF do favorecido:</label>
   <input type="text" id="cpfFavorecido" placeholder="Digite o número do CPF do favorecido">
  
-  <label for="titularSeguro">Titular do seguro:</label>
-  <input type="text" id="titularSeguro" placeholder="Digite o nome do titular do seguro">
+  <label for="titular">Titular do seguro:</label>
+  <input type="text" id="titular" placeholder="Digite o nome do titular do seguro">
 
   <label for="cpfTitular">CPF do titular:</label>
   <input type="text" id="cpfTitular" placeholder="Digite o número do CPF do titular">
@@ -229,8 +229,8 @@
     var dia = String(dataAtual.getDate()).padStart(2, '0');
     var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
     var ano = dataAtual.getFullYear();
-    var dataAtualFormatada = ano + '-' + mes + '-' + dia;
-    dataAberturaInput.value = dataAtualFormatada;
+    var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
+    dataAberturaInput.value = dataAberturaFormatada;
   }
 
   preencherDataAbertura();
@@ -244,8 +244,6 @@
 
   function gerarTexto() {
     var canal = document.getElementById("canal").value;
-    var dataAberturaInput = document.getElementById("dataAbertura").value;
-    var dataAbertura = new Date(dataAberturaInput);
     var favorecido = document.getElementById("favorecido").value;
     var cpfFavorecido = document.getElementById("cpfFavorecido").value;
     var titular = document.getElementById("titular").value;
@@ -261,42 +259,42 @@
     var operacao = document.getElementById("operacao").value; 
     var conta = document.getElementById("conta").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
-    
 
-    var dia = String(dataAbertura.getDate() + 1).padStart(2, '0');
+    var dataAberturaInput = document.getElementById("dataAbertura").value;
+    var dataAbertura = new Date(dataAberturaInput);
+    var dia = String(dataAbertura.getDate()).padStart(2, '0');
     var mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
     var ano = dataAbertura.getFullYear();
     var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
 
-    var texto = `
-      Solicitação/Tarefa: 
-      Canal: ${canal}
-      Abertura: ${dataAberturaFormatada}
+    var texto = `Solicitação/Tarefa: 
+Canal: ${canal}
+Abertura: ${dataAberturaFormatada}
 
 
-      Favorecido: ${favorecido}
-      CPF: ${cpfFavorecido}
-      Titular do seguro: ${titular}
-      CPF: ${cpfTitular}
+Favorecido: ${favorecido}
+CPF: ${cpfFavorecido}
+Titular do seguro: ${titular}
+CPF: ${cpfTitular}
 
 
-      Apólice: ${apolice}
-      Produto: ${produto}
-      Certificado: ${certificado}
-      Valor à restituir R$ ${valorDevido}
-      Parcela nº: ${parcela}. ${proporcionalCheckbox=checked ? "proporcional" : ""}
+Apólice: ${apolice}
+Produto: ${produto}
+Certificado: ${certificado}
+Valor à restituir R$ ${valorDevido}
+Parcela nº: ${parcela}. ${proporcionalCheckbox ? "proporcional" : ""}
 
 
-      Motivo: ${motivo}
+Motivo: ${motivo}
 
 
-      Dados bancários;
+Dados bancários;
 
-      Banco: ${banco}
-      Ag: ${agencia}
-      Op: ${operacao}
-      Conta: ${conta}
-      `;
+Banco: ${banco}
+Ag: ${agencia}
+Op: ${operacao}
+Conta: ${conta}
+`;
 
     document.getElementById("textoResultado").value = texto;
   }
