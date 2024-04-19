@@ -223,10 +223,6 @@
 
 <script>
 
-  document.addEventListener("DOMContentLoaded", function() {
-      preencherDataAbertura();
-  });
-
   function preencherDataAbertura() {
       var dataAberturaInput = document.getElementById("dataAbertura");
       var dataAtual = new Date();
@@ -237,7 +233,9 @@
       dataAberturaInput.value = dataAberturaFormatada;
   }
 
-  preencherDataAbertura();
+  document.addEventListener("DOMContentLoaded", function() {
+      preencherDataAbertura();
+  });
 
   function preencherBanco() {
     var bancoInput = document.getElementById("banco");
