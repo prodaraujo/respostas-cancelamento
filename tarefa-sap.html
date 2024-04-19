@@ -223,14 +223,18 @@
 
 <script>
 
+  document.addEventListener("DOMContentLoaded", function() {
+      preencherDataAbertura();
+  });
+
   function preencherDataAbertura() {
-    var dataAberturaInput = document.getElementById("dataAbertura");
-    var dataAtual = new Date();
-    var dia = String(dataAtual.getDate()).padStart(2, '0');
-    var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
-    var ano = dataAtual.getFullYear();
-    var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
-    dataAberturaInput.value = dataAberturaFormatada;
+      var dataAberturaInput = document.getElementById("dataAbertura");
+      var dataAtual = new Date();
+      var dia = String(dataAtual.getDate()).padStart(2, '0');
+      var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+      var ano = dataAtual.getFullYear();
+      var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
+      dataAberturaInput.value = dataAberturaFormatada;
   }
 
   preencherDataAbertura();
