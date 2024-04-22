@@ -311,7 +311,16 @@ Op: ${operacao}
 Conta: ${conta}`;
 
     document.getElementById("dadosCopiar").value = dadosCopiar;
-    
+
+
+    function copiarDados(){
+      var dadosCopiados = document.getElementById("dadosCopiar");
+      dadosCopiados.select();
+      dadosCopiados.setSelectionRange(0, 99999);
+      dadosCopiados.execCommand("copy");
+    }
+
+    copiarDados()
   }
 
   function copiarTexto() {
@@ -348,6 +357,7 @@ Conta: ${conta}`;
     document.getElementById("operacao").value = "";
     document.getElementById("conta").value = "";
     document.getElementById("parcela").value = "";  
+    document.getElementById("dadosCopiar").value = "";  
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
