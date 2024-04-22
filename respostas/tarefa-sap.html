@@ -103,7 +103,7 @@
     margin-bottom: 2px;
 }
 
-  #textoResultado {
+  textarea {
     width: 100%;
     padding: 8px;
     margin-top: 10px;
@@ -185,7 +185,7 @@
   <label for="parcela">Parcela:</label>
     <input type="number" id="parcela" placeholder="Digite o número da parcela">
 
-  <select id="motivo">
+  <select title="motivo" id="motivo">
     <option value="Bilhete cancelado - Restituição após cancelamento">Bilhete cancelado</option>
     <option value="Erro SIAS">Erro SIAS</option>
     <option value="Conta de terceiros">Conta de terceiros</option>
@@ -216,6 +216,8 @@
   <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
 
   <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btnVoltar" id="btnVoltar">Voltar</button></a>
+
+  <textarea id="dadosCopiar" placeholder="Dados para copiar" readonly></textarea>
 
 </div>
 
@@ -299,6 +301,17 @@ Conta: ${conta}
 `;
 
     document.getElementById("textoResultado").value = texto;
+
+
+    var dadosCopiar =`CPF: ${cpfFavorecido}
+Nome: ${favorecido}
+Banco: ${banco}
+Agencia: ${agencia}
+Op: ${operacao}
+Conta: ${conta}`;
+
+    document.getElementById("dadosCopiar").value = dadosCopiar;
+    
   }
 
   function copiarTexto() {
