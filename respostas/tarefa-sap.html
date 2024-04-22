@@ -209,6 +209,59 @@
   <label for="conta">Conta:</label>
   <input type="text" id="conta" placeholder="Digite o número da conta">
 
+  <label for="telefone">Número de telefone:</label>
+  <input type="text" id="telefone" placeholder="Digite o número de telefone">
+
+  <label for="email">E-mail:</label>
+  <input type="text" id="email" placeholder="Digite o e-mail">
+
+  <label for="logradouro">Logradouro:</label>
+  <input type="text" id="logradouro" placeholder="Digite o logradouro">
+
+  <label for="numero">Número da Casa:</label>
+  <input type="text" id="numero" placeholder="Digite o nº da casa">
+
+  <label for="bairro">Bairro:</label>
+  <input type="text" id="bairro" placeholder="Digite o bairro">
+
+  <label for="cidade">Cidade:</label>
+  <input type="text" id="cidade" placeholder="Digite a cidade">
+
+  <label for="uf">UF:</label>
+  <select id="uf" name="uf" title="uf">
+    <option value="">Selecione uma UF</option>
+    <option value="AC">Acre (AC)</option>
+    <option value="AL">Alagoas (AL)</option>
+    <option value="AP">Amapá (AP)</option>
+    <option value="AM">Amazonas (AM)</option>
+    <option value="BA">Bahia (BA)</option>
+    <option value="CE">Ceará (CE)</option>
+    <option value="DF">Distrito Federal (DF)</option>
+    <option value="ES">Espírito Santo (ES)</option>
+    <option value="GO">Goiás (GO)</option>
+    <option value="MA">Maranhão (MA)</option>
+    <option value="MT">Mato Grosso (MT)</option>
+    <option value="MS">Mato Grosso do Sul (MS)</option>
+    <option value="MG">Minas Gerais (MG)</option>
+    <option value="PA">Pará (PA)</option>
+    <option value="PB">Paraíba (PB)</option>
+    <option value="PR">Paraná (PR)</option>
+    <option value="PE">Pernambuco (PE)</option>
+    <option value="PI">Piauí (PI)</option>
+    <option value="RJ">Rio de Janeiro (RJ)</option>
+    <option value="RN">Rio Grande do Norte (RN)</option>
+    <option value="RS">Rio Grande do Sul (RS)</option>
+    <option value="RO">Rondônia (RO)</option>
+    <option value="RR">Roraima (RR)</option>
+    <option value="SC">Santa Catarina (SC)</option>
+    <option value="SP">São Paulo (SP)</option>
+    <option value="SE">Sergipe (SE)</option>
+    <option value="TO">Tocantins (TO)</option>
+</select>
+
+  <label for="cep">CEP:</label>
+  <input type="text" id="cep" placeholder="Digite o CEP">
+
   <button onclick="gerarTexto()">Gerar Texto</button>
 
   <textarea id="textoResultado" placeholder="Aqui vai o texto gerado" readonly></textarea>
@@ -218,6 +271,7 @@
   <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btnVoltar" id="btnVoltar">Voltar</button></a>
 
   <textarea id="dadosCopiar" placeholder="Dados para copiar" readonly></textarea>
+  <button id="downloadBtn">Baixar Arquivo</button>
 
 </div>
 
@@ -262,6 +316,14 @@
     var agencia = document.getElementById("agencia").value;
     var operacao = document.getElementById("operacao").value; 
     var conta = document.getElementById("conta").value;
+    var telefone = document.getElementById("telefone").value;
+    var email = document.getElementById("email").value;
+    var logradouro = document.getElementById("logradouro").value;
+    var numero_casa = document.getElementById("numero").value;
+    var bairro = document.getElementById("bairro").value;
+    var cidade = document.getElementById("cidade").value;
+    var uf = document.getElementById("uf").value;
+    var cep = document.getElementById("cep").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
 
     var dataAberturaInput = document.getElementById("dataAbertura").value;
@@ -275,12 +337,10 @@
 Canal: ${canal}
 Abertura: ${dataAberturaFormatada}
 
-
 Favorecido: ${favorecido}
 CPF: ${cpfFavorecido}
 Titular do seguro: ${titular}
 CPF: ${cpfTitular}
-
 
 Apólice: ${apolice}
 Produto: ${produto}
@@ -288,9 +348,7 @@ Certificado: ${certificado}
 Valor à restituir R$ ${valorDevido}
 Parcela nº: ${parcela}. ${proporcionalCheckbox ? "proporcional" : ""}
 
-
 Motivo: ${motivo}
-
 
 Dados bancários;
 
@@ -305,22 +363,33 @@ Conta: ${conta}
 
     var dadosCopiar =`CPF: ${cpfFavorecido}
 Nome: ${favorecido}
+Telefone: ${telefone}
+E-mail: ${email}
 Banco: ${banco}
 Agencia: ${agencia}
 Op: ${operacao}
-Conta: ${conta}`;
+Conta: ${conta}
+Logradouro: ${logradouro}
+Nº: ${numero_casa}
+Bairro: ${bairro}
+Cidade: ${cidade}
+UF: ${uf}
+CEP: ${cep}
+`;
 
     document.getElementById("dadosCopiar").value = dadosCopiar;
 
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+            const texto = dadosCopiar;
+            const blob = new Blob([texto], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'dados_do_favorecido.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    });
 
-    function copiarDados(){
-      var dadosCopiados = document.getElementById("dadosCopiar");
-      dadosCopiados.select();
-      dadosCopiados.setSelectionRange(0, 99999);
-      dadosCopiados.execCommand("copy");
-    }
-
-    copiarDados()
   }
 
   function copiarTexto() {
@@ -357,6 +426,14 @@ Conta: ${conta}`;
     document.getElementById("operacao").value = "";
     document.getElementById("conta").value = "";
     document.getElementById("parcela").value = "";  
+    document.getElementById("telefone").value = ""; 
+    document.getElementById("email").value = ""; 
+    document.getElementById("logradouro").value = ""; 
+    document.getElementById("numero").value = ""; 
+    document.getElementById("bairro").value = ""; 
+    document.getElementById("cidade").value = ""; 
+    document.getElementById("uf").value = ""; 
+    document.getElementById("cep").value = ""; 
     document.getElementById("dadosCopiar").value = "";  
 
     // Desmarcar a checkbox
