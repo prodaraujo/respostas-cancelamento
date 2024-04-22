@@ -209,6 +209,9 @@
   <label for="conta">Conta:</label>
   <input type="text" id="conta" placeholder="Digite o número da conta">
 
+  <label for="digito">Dígito da conta:</label>
+  <input type="text" id="digito" placeholder="Digite o dígito da conta">
+
   <label for="telefone">Número de telefone:</label>
   <input type="text" id="telefone" placeholder="Digite o número de telefone">
 
@@ -316,6 +319,7 @@
     var agencia = document.getElementById("agencia").value;
     var operacao = document.getElementById("operacao").value; 
     var conta = document.getElementById("conta").value;
+    var digito = document.getElementById("digito").value;
     var telefone = document.getElementById("telefone").value;
     var email = document.getElementById("email").value;
     var logradouro = document.getElementById("logradouro").value;
@@ -355,7 +359,7 @@ Dados bancários;
 Banco: ${banco}
 Ag: ${agencia}
 Op: ${operacao}
-Conta: ${conta}
+Conta: ${conta}-${digito}
 `;
 
     document.getElementById("textoResultado").value = texto;
@@ -373,8 +377,9 @@ ${uf}
 ${cep}
 ${banco}
 ${agencia}
-${operacao}
-${conta}`;
+${conta}
+${digito}
+${operacao}`;
 
     document.getElementById("dadosCopiar").value = dadosCopiar;
 
