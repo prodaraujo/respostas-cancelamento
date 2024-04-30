@@ -127,6 +127,27 @@
     margin-top: 5px; /* Reduzindo a margem superior do botão de cópia */
     margin-bottom: 0; /* Removendo a margem inferior do botão de cópia */
   }
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .mensagemCopiado {
+    position:fixed;
+    display: none;
+    background-color: rgb(69, 148, 69);
+    color: #fff;
+    border-radius: 2px;
+    border-color: #fff;
+    border-spacing: 10px;
+    padding: 2px 104px 5px 104px;
+    margin: 0px 0px 800px 0px;
+    font-weight: 600;
+    font-size: 15pt;
+    z-index: 9999;
+    animation: fade-in 0.5s ease-out; /* Adicionando a animação */
+  }
 </style>
 </head>
 <body>
