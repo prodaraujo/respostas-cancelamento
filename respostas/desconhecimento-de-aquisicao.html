@@ -134,19 +134,19 @@
   }
 
   .mensagemCopiado {
-    position:fixed;
-    display: none;
+    position: fixed;
+    top: 10px;
+    right: 50%;
+    transform: translateX(50%);
     background-color: rgb(69, 148, 69);
     color: #fff;
     border-radius: 2px;
-    border-color: #fff;
-    border-spacing: 10px;
-    padding: 2px 104px 5px 104px;
-    margin: 0px 0px 800px 0px;
+    padding: 10px;
     font-weight: 600;
     font-size: 15pt;
+    display: none;
     z-index: 9999;
-    animation: fade-in 0.5s ease-out; /* Adicionando a animação */
+    transition: opacity 0.5s ease-in-out;
   }
 </style>
 </head>
