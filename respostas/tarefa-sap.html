@@ -274,7 +274,7 @@
   <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btnVoltar" id="btnVoltar">Voltar</button></a>
 
   <textarea id="dadosCopiar" placeholder="Dados para copiar" readonly></textarea>
-  <button id="downloadBtn">Baixar Arquivo</button>
+  <button onclick="baixarJSON()" id="downloadBtn">Baixar Arquivo</button>
 
 </div>
 
@@ -364,36 +364,77 @@ Conta: ${conta}-${digito}
 
     document.getElementById("textoResultado").value = texto;
 
-
-    var dadosCopiar =`${cpfFavorecido}
-${favorecido}
-${telefone}
-${email}
-${logradouro}
-${numero_casa}
-${bairro}
-${cidade}
-${uf}
-${cep}
-${banco}
-${agencia}
-${conta}
-${digito}
-${operacao}`;
-
-    document.getElementById("dadosCopiar").value = dadosCopiar;
-
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-            const texto = dadosCopiar;
-            const blob = new Blob([texto], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'dados_do_favorecido.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-    });
   }
+
+  function baixarJSON(){
+    var canal = document.getElementById("canal").value;
+    var favorecido = document.getElementById("favorecido").value;
+    var cpfFavorecido = document.getElementById("cpfFavorecido").value;
+    var titular = document.getElementById("titular").value;
+    var cpfTitular = document.getElementById("cpfTitular").value; 
+    var apolice = document.getElementById("apolice").value;
+    var produto = document.getElementById("produto").value;
+    var certificado = document.getElementById("certificado").value;
+    var valorDevido = document.getElementById("valorDevido").value;
+    var parcela = document.getElementById("parcela").value;
+    var motivo = document.getElementById("motivo").value;
+    var banco = document.getElementById("banco").value;
+    var agencia = document.getElementById("agencia").value;
+    var operacao = document.getElementById("operacao").value; 
+    var conta = document.getElementById("conta").value;
+    var digito = document.getElementById("digito").value;
+    var telefone = document.getElementById("telefone").value;
+    var email = document.getElementById("email").value;
+    var logradouro = document.getElementById("logradouro").value;
+    var numero_casa = document.getElementById("numero").value;
+    var bairro = document.getElementById("bairro").value;
+    var cidade = document.getElementById("cidade").value;
+    var uf = document.getElementById("uf").value;
+    var cep = document.getElementById("cep").value;
+
+    const dadosCliente = {
+    canal: document.getElementById("canal").value,
+    favorecido: document.getElementById("favorecido").value,
+    cpfFavorecido: document.getElementById("cpfFavorecido").value,
+    titular: document.getElementById("titular").value,
+    cpfTitular: document.getElementById("cpfTitular").value,
+    apolice: document.getElementById("apolice").value,
+    produto: document.getElementById("produto").value,
+    certificado: document.getElementById("certificado").value,
+    valorDevido: document.getElementById("valorDevido").value,
+    parcela: document.getElementById("parcela").value,
+    motivo: document.getElementById("motivo").value,
+    banco: document.getElementById("banco").value,
+    agencia: document.getElementById("agencia").value,
+    operacao: document.getElementById("operacao").value,
+    conta: document.getElementById("conta").value,
+    digito: document.getElementById("digito").value,
+    telefone: document.getElementById("telefone").value,
+    email: document.getElementById("email").value,
+    logradouro: document.getElementById("logradouro").value,
+    numero_casa: document.getElementById("numero").value,
+    bairro: document.getElementById("bairro").value,
+    cidade: document.getElementById("cidade").value,
+    uf: document.getElementById("uf").value,
+    cep: document.getElementById("cep").value,
+  };
+
+    const jsonString = JSON.stringify(dadosCliente, null, 2); // Pretty-print with 2 spaces for readability
+
+      // Crie o Blob
+    const blob = new Blob([jsonString], { type: "application/json" });
+
+    // Crie o link de download
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "dados_favorecido.json"; // Defina o nome do arquivo
+
+    // Adicione ao DOM e acione o download automaticamente
+    document.body.appendChild(link);
+    link.click(); // Se quiser baixar automaticamente
+  };
+
 
   function copiarTexto() {
     var textoResultado = document.getElementById("textoResultado");
