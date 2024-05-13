@@ -292,7 +292,7 @@
     texto += " no valor de R$ " + valorDevido + ". ";
     texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
     if (programacaoCheckbox) {
-    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacaoFormatada +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ XXXX será efetuada em até 10 dias nos dados bancários cadastrados.\n\n "
+    texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacaoFormatada +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ "+ valorProgramacao +", será efetuada em até 10 dias nos dados bancários cadastrados.\n\n"
     }
     texto += "A contratação do seguro ocorreu em "+ dataContratacaoFormatada +", junto à AG "+ agenciaContratacao +", mediante assinatura eletrônica, via SMS por meio do telefone "+ telefone +". A assinatura da proposta caracteriza a anuência para a emissão do seguro e a concordância com as Condições Gerais, onde há a informação sobre a cobrança do produto. Assim, considerando a proposta de adesão assinada, não será realizado o ressarcimento dos valores pagos no período de vigência do seguro. \n\n";
     texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
