@@ -332,7 +332,7 @@
 
     var dataAberturaInput = document.getElementById("dataAbertura").value;
     var dataAbertura = new Date(dataAberturaInput);
-    var dia = String(dataAbertura.getDate()).padStart(2, '0');
+    var dia = String(dataAbertura.getDate() + 1).padStart(2, '0');
     var mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
     var ano = dataAbertura.getFullYear();
     var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
