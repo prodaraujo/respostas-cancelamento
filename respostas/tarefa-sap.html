@@ -126,7 +126,7 @@
   }
 
   .mensagemCopiado {
-    position:fixed;
+    position:fixed ;
     display: none;
     background-color: rgb(69, 148, 69);
     color: #fff;
@@ -134,7 +134,7 @@
     border-color: #fff;
     border-spacing: 10px;
     padding: 2px 104px 5px 104px;
-    margin: 0px 0px 800px 0px;
+    margin: 0 0 1900px 0;
     font-weight: 600;
     font-size: 15pt;
     z-index: 9999;
@@ -273,9 +273,6 @@
 
   <a href="https://prodaraujo.github.io/respostas-cancelamento/"><button class="btnVoltar" id="btnVoltar">Voltar</button></a>
 
-  <textarea id="dadosCopiar" placeholder="Dados para copiar" readonly></textarea>
-  <button onclick="gerarJSON()" id="downloadBtn">Gerar Arquivo</button>
-
 </div>
 
 <div id="copiedMessage" class="mensagemCopiado">Texto copiado!</div>
@@ -366,68 +363,6 @@ Conta: ${conta}-${digito}
 
   }
 
-  function gerarJSON(){
-    // Crie o Blob
-    const blob = new Blob([jsonString], { type: "application/json" });
-
-    // Crie o link de download
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "dados_favorecido.json"; // Defina o nome do arquivo
-
-    // Adicione ao DOM e acione o download automaticamente
-    document.body.appendChild(link);
-    link.click(); // Se quiser baixar automaticamente
-
-    const express = require('express');  // Importa o Express
-    const app = express();  // Cria uma instância do aplicativo Express
-
-    // Cria uma rota que retorna dados JSON
-    app.get('/dados', (req, res) => {
-    const dadosCliente = {
-      canal: document.getElementById("canal").value,
-      favorecido: document.getElementById("favorecido").value,
-      cpfFavorecido: document.getElementById("cpfFavorecido").value,
-      titular: document.getElementById("titular").value,
-      cpfTitular: document.getElementById("cpfTitular").value,
-      apolice: document.getElementById("apolice").value,
-      produto: document.getElementById("produto").value,
-      certificado: document.getElementById("certificado").value,
-      valorDevido: document.getElementById("valorDevido").value,
-      parcela: document.getElementById("parcela").value,
-      motivo: document.getElementById("motivo").value,
-      banco: document.getElementById("banco").value,
-      agencia: document.getElementById("agencia").value,
-      operacao: document.getElementById("operacao").value,
-      conta: document.getElementById("conta").value,
-      digito: document.getElementById("digito").value,
-      telefone: document.getElementById("telefone").value,
-      email: document.getElementById("email").value,
-      logradouro: document.getElementById("logradouro").value,
-      numero_casa: document.getElementById("numero").value,
-      bairro: document.getElementById("bairro").value,
-      cidade: document.getElementById("cidade").value,
-      uf: document.getElementById("uf").value,
-      cep: document.getElementById("cep").value,
-    };
-
-        res.json(dadosCliente);  // Retorna o JSON como resposta
-    });
-
-      // Inicia o servidor na porta 3000
-      const port = 3000;
-      app.listen(port, () => {
-        console.log(`Servidor rodando em http://localhost:${port}/dados`);  // Mensagem de sucesso
-    });
-
-  };
-
-
-
-
-
-
   function copiarTexto() {
     var textoResultado = document.getElementById("textoResultado");
     textoResultado.select();
@@ -438,6 +373,8 @@ Conta: ${conta}-${digito}
     var copiedMessage = document.getElementById("copiedMessage");
     copiedMessage.style.display = "inline";
     copiedMessage.classList.add("fade-in");
+
+    document.getElementById("textoResultado").value = "";
 
     // Ocultar a mensagem após a conclusão da animação
     setTimeout(function() {
@@ -475,8 +412,7 @@ Conta: ${conta}-${digito}
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
 
-    // Limpar campo da resposta
-    document.getElementById("textoResultado").value = "";
+
 
     // Preencher a data de cancelamento com a data atual
     preencherDataAbertura();
