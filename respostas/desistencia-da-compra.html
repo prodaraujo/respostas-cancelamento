@@ -266,9 +266,20 @@
     var ano = dataProgramacao.getFullYear();
     var dataProgramacaoFormatada = dia + '/' + mes + '/' + ano;
 
+    var dataAtual = new Date();
+    var diaAtual = String(dataAtual.getDate() ).padStart(2, '0');
+    var mesAtual = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    var anoAtual = dataAtual.getFullYear();
+    var dataAtualFormatada = diaAtual + '/' + mesAtual + '/' + anoAtual;
+
     var texto = "Olá, tudo bem?\n\n";
-    texto += "O seu seguro com certificado " + certificado + ", do produto " + produto + " foi cancelado. ";
-    texto += "A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
+    texto += "O seu seguro com certificado " + certificado + ", do produto " + produto;
+    if (dataAtualFormatada==dataCancelamentoFormatada) {
+      texto += "foi cancelado. A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
+    }
+      else if (dataAtualFormatada!==dataCancelamentoFormatada) {
+        texto += " encontra-se cancelado desde " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
+      }
     if (proporcionalCheckbox) {
       texto += " proporcional";
     }
