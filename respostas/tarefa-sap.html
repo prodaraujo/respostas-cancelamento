@@ -134,7 +134,7 @@
     border-color: #fff;
     border-spacing: 10px;
     padding: 2px 104px 5px 104px;
-    margin: 0 0 1900px 0;
+    margin: 0 0 1400px 0;
     font-weight: 600;
     font-size: 15pt;
     z-index: 9999;
@@ -212,59 +212,6 @@
   <label for="digito">Dígito da conta:</label>
   <input type="text" id="digito" placeholder="Digite o dígito da conta">
 
-  <label for="telefone">Número de telefone:</label>
-  <input type="text" id="telefone" placeholder="Digite o número de telefone">
-
-  <label for="email">E-mail:</label>
-  <input type="text" id="email" placeholder="Digite o e-mail">
-
-  <label for="logradouro">Logradouro:</label>
-  <input type="text" id="logradouro" placeholder="Digite o logradouro">
-
-  <label for="numero">Número da Casa:</label>
-  <input type="text" id="numero" placeholder="Digite o nº da casa">
-
-  <label for="bairro">Bairro:</label>
-  <input type="text" id="bairro" placeholder="Digite o bairro">
-
-  <label for="cidade">Cidade:</label>
-  <input type="text" id="cidade" placeholder="Digite a cidade">
-
-  <label for="uf">UF:</label>
-  <select id="uf" name="uf" title="uf">
-    <option value="">Selecione uma UF</option>
-    <option value="AC">Acre (AC)</option>
-    <option value="AL">Alagoas (AL)</option>
-    <option value="AP">Amapá (AP)</option>
-    <option value="AM">Amazonas (AM)</option>
-    <option value="BA">Bahia (BA)</option>
-    <option value="CE">Ceará (CE)</option>
-    <option value="DF">Distrito Federal (DF)</option>
-    <option value="ES">Espírito Santo (ES)</option>
-    <option value="GO">Goiás (GO)</option>
-    <option value="MA">Maranhão (MA)</option>
-    <option value="MT">Mato Grosso (MT)</option>
-    <option value="MS">Mato Grosso do Sul (MS)</option>
-    <option value="MG">Minas Gerais (MG)</option>
-    <option value="PA">Pará (PA)</option>
-    <option value="PB">Paraíba (PB)</option>
-    <option value="PR">Paraná (PR)</option>
-    <option value="PE">Pernambuco (PE)</option>
-    <option value="PI">Piauí (PI)</option>
-    <option value="RJ">Rio de Janeiro (RJ)</option>
-    <option value="RN">Rio Grande do Norte (RN)</option>
-    <option value="RS">Rio Grande do Sul (RS)</option>
-    <option value="RO">Rondônia (RO)</option>
-    <option value="RR">Roraima (RR)</option>
-    <option value="SC">Santa Catarina (SC)</option>
-    <option value="SP">São Paulo (SP)</option>
-    <option value="SE">Sergipe (SE)</option>
-    <option value="TO">Tocantins (TO)</option>
-</select>
-
-  <label for="cep">CEP:</label>
-  <input type="text" id="cep" placeholder="Digite o CEP">
-
   <button onclick="gerarTexto()">Gerar Texto</button>
 
   <textarea id="textoResultado" placeholder="Aqui vai o texto gerado" readonly></textarea>
@@ -317,14 +264,6 @@
     var operacao = document.getElementById("operacao").value; 
     var conta = document.getElementById("conta").value;
     var digito = document.getElementById("digito").value;
-    var telefone = document.getElementById("telefone").value;
-    var email = document.getElementById("email").value;
-    var logradouro = document.getElementById("logradouro").value;
-    var numero_casa = document.getElementById("numero").value;
-    var bairro = document.getElementById("bairro").value;
-    var cidade = document.getElementById("cidade").value;
-    var uf = document.getElementById("uf").value;
-    var cep = document.getElementById("cep").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
 
     var dataAberturaInput = document.getElementById("dataAbertura").value;
@@ -382,7 +321,7 @@ Conta: ${conta}-${digito}
         setTimeout(function() {
             copiedMessage.style.display = "none";
         }, 500); // Tempo da animação em milissegundos
-    }, 500); // Tempo da animação em milissegundos
+    }, 3000); // Tempo da animação em milissegundos
 
     // Limpar os campos de entrada após copiar o texto
     document.getElementById("canal").value = "";
@@ -396,18 +335,8 @@ Conta: ${conta}-${digito}
     document.getElementById("valorDevido").value = "";
     document.getElementById("parcela").value = "";
     document.getElementById("agencia").value = "";
-    document.getElementById("operacao").value = "";
     document.getElementById("conta").value = "";
-    document.getElementById("parcela").value = "";  
-    document.getElementById("telefone").value = ""; 
-    document.getElementById("email").value = ""; 
-    document.getElementById("logradouro").value = ""; 
-    document.getElementById("numero").value = ""; 
-    document.getElementById("bairro").value = ""; 
-    document.getElementById("cidade").value = ""; 
-    document.getElementById("uf").value = ""; 
-    document.getElementById("cep").value = ""; 
-    document.getElementById("dadosCopiar").value = "";  
+    document.getElementById("parcela").value = "";    
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
