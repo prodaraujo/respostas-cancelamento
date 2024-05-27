@@ -167,6 +167,16 @@
   <label for="valorDevido">Valor Devido:</label>
   <input type="text" id="valorDevido" placeholder="Digite o valor devido">
 
+  <label class="checkbox-label" for="pagoCheckbox">
+    <input type="checkbox" id="pagoCheckbox" class="checkbox-input" onclick="pago()">
+    Pago
+  </label>
+
+  <div id="pagoCondicao" class="hidden">
+    <label for="dataPago">Data que foi pago:</label>
+    <input type="date" id="dataPago">
+  </div>
+
   <label class="checkbox-label" for="proporcionalCheckbox">
     <input type="checkbox" id="proporcionalCheckbox" class="checkbox-input">
     Proporcional
@@ -221,6 +231,17 @@
       });
   };  
 
+  function pago() {
+    document.getElementById("pagoCheckbox").addEventListener("change", function() {
+          var conteudoDiv1 = document.getElementById("pagoCondicao");
+          if (this.checked) {
+              conteudoDiv1.classList.remove("hidden");
+          } else {
+              conteudoDiv1.classList.add("hidden");
+          }  
+      });
+  };  
+
   function preencherDataCancelamento() {
     var dataCancelamentoInput = document.getElementById("dataCancelamento");
     var dataAtual = new Date();
@@ -250,8 +271,11 @@
     var agencia = document.getElementById("agencia").value;
     var conta = document.getElementById("conta").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
+    var pagoCheckbox = document.getElementById("pagoCheckbox").checked;
     var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
     var parcela = document.getElementById("parcela").value;
+    var dataPagoInput = document.getElementById("dataPago").value;
+    var dataPago = new Date(dataPagoInput);
     var dataProgramacaoInput = document.getElementById("dataProgramacao").value;
     var dataProgramacao = new Date(dataProgramacaoInput);
     var valorProgramacao = document.getElementById("valorProgramacao").value;
@@ -272,19 +296,37 @@
     var anoAtual = dataAtual.getFullYear();
     var dataAtualFormatada = diaAtual + '/' + mesAtual + '/' + anoAtual;
 
+    var dia = String(dataPago.getDate() + 1).padStart(2, '0');
+    var mes = String(dataPago.getMonth() + 1).padStart(2, '0');
+    var ano = dataPago.getFullYear();
+    var dataPagoFormatada = dia + '/' + mes + '/' + ano;
+
     var texto = "Olá, tudo bem?\n\n";
     texto += "O seu seguro com certificado " + certificado + ", do produto " + produto;
+
     if (dataAtualFormatada==dataCancelamentoFormatada) {
-      texto += "foi cancelado. A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
+      texto += " foi cancelado. A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
     }
       else if (dataAtualFormatada!==dataCancelamentoFormatada) {
         texto += " encontra-se cancelado desde " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
       }
+
     if (proporcionalCheckbox) {
       texto += " proporcional";
     }
+
     texto += " no valor de R$ " + valorDevido + ". ";
-    texto += "O crédito da restituição está previsto para ocorrer em até 3 dias úteis, no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
+    texto += "O crédito da restituição";
+    
+    if (pagoCheckbox){
+      texto += " ocorreu em " + dataPagoFormatada + " ";
+    }
+      else{
+      texto += " está previsto para ocorrer em até 3 dias úteis, ";
+      }
+
+    texto += "no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
+    
     if (programacaoCheckbox) {
     texto += "A parcela nº "+ parcela +" já está com débito programado para "+ dataProgramacaoFormatada +" e não foi possível a inibição. Mas não se preocupe! Se a cobrança for confirmada a restituição integral no valor de R$ "+ valorProgramacao +" será efetuada em até 10 dias nos dados bancários cadastrados.\n\n"
     }
@@ -325,16 +367,33 @@
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
     document.getElementById("programacaoCheckbox").checked = false;
+    document.getElementById("pagoCheckbox").checked = false;
+
+
+    var pagoCondicao = document.getElementById("pagoCondicao");
+    var pagoCheckbox = document.getElementById("pagoCheckbox").checked;
+    var programacaoCondicao = document.getElementById("programacaoCondicao");
+    var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
+
+    if (pagoCheckbox==false) {
+        var conteudoDiv = document.getElementById("pagoCondicao");
+          if (this.checked) {
+              conteudoDiv.classList.remove("hidden");
+          } else {
+              conteudoDiv.classList.add("hidden");
+          }  
+      }; 
+  
+
+    if (programacaoCheckbox==false) {
+        var conteudoDiv1 = document.getElementById("programacaoCondicao");
+          if (this.checked) {
+              conteudoDiv1.classList.remove("hidden");
+          } else {
+              conteudoDiv1.classList.add("hidden");
+          }  
+      }; 
     
-    
-    document.getElementById("programacaoCondicao").addEventListener("change", function() {
-        var conteudoDiv = document.getElementById("programacaoCondicao");
-        if (this.checked) {
-            conteudoDiv.classList.add("hidden");
-        } else {
-            conteudoDiv.classList.remove("hidden");
-        }  
-    });
 
     // Limpar campo da resposta
     document.getElementById("textoResultado").value = "";
@@ -347,6 +406,8 @@
 
     // Ocultar dados de programação
     programacao();
+
+    pago();
   }
 </script>
 </body>
