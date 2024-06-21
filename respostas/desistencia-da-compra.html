@@ -265,7 +265,7 @@
     var certificado = document.getElementById("certificado").value;
     var produto = document.getElementById("produto").value;
     var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
-    var dataCancelamento = new Date(dataCancelamentoInput);
+    var dataCancelamento = new Date(dataCancelamentoInput + "T00:00:00");
     var valorDevido = document.getElementById("valorDevido").value;
     var banco = document.getElementById("banco").value;
     var agencia = document.getElementById("agencia").value;
@@ -275,28 +275,28 @@
     var programacaoCheckbox = document.getElementById("programacaoCheckbox").checked;
     var parcela = document.getElementById("parcela").value;
     var dataPagoInput = document.getElementById("dataPago").value;
-    var dataPago = new Date(dataPagoInput);
+    var dataPago = new Date(dataPagoInput + "T00:00:00");
     var dataProgramacaoInput = document.getElementById("dataProgramacao").value;
-    var dataProgramacao = new Date(dataProgramacaoInput);
+    var dataProgramacao = new Date(dataProgramacaoInput + "T00:00:00");
     var valorProgramacao = document.getElementById("valorProgramacao").value;
 
-    var dia = String(dataCancelamento.getDate() + 1).padStart(2, '0');
+    var dia = String(dataCancelamento.getDate()).padStart(2, '0');
     var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
     var ano = dataCancelamento.getFullYear();
     var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
 
-    var dia = String(dataProgramacao.getDate() + 1).padStart(2, '0');
+    var dia = String(dataProgramacao.getDate() ).padStart(2, '0');
     var mes = String(dataProgramacao.getMonth() + 1).padStart(2, '0');
     var ano = dataProgramacao.getFullYear();
     var dataProgramacaoFormatada = dia + '/' + mes + '/' + ano;
 
     var dataAtual = new Date();
-    var diaAtual = String(dataAtual.getDate() ).padStart(2, '0');
+    var diaAtual = String(dataAtual.getDate()).padStart(2, '0');
     var mesAtual = String(dataAtual.getMonth() + 1).padStart(2, '0');
     var anoAtual = dataAtual.getFullYear();
     var dataAtualFormatada = diaAtual + '/' + mesAtual + '/' + anoAtual;
 
-    var dia = String(dataPago.getDate() + 1).padStart(2, '0');
+    var dia = String(dataPago.getDate()).padStart(2, '0');
     var mes = String(dataPago.getMonth() + 1).padStart(2, '0');
     var ano = dataPago.getFullYear();
     var dataPagoFormatada = dia + '/' + mes + '/' + ano;
