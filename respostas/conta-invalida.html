@@ -185,11 +185,11 @@
     var certificado = document.getElementById("certificado").value;
     var produto = document.getElementById("produto").value;
     var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
-    var dataCancelamento = new Date(dataCancelamentoInput);
+    var dataCancelamento = new Date(dataCancelamentoInput + "T00:00:00");
     var valorDevido = document.getElementById("valorDevido").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
 
-    var dia = String(dataCancelamento.getDate() + 1).padStart(2, '0');
+    var dia = String(dataCancelamento.getDate()).padStart(2, '0');
     var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
     var ano = dataCancelamento.getFullYear();
     var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
