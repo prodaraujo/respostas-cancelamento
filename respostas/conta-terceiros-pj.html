@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarefa SAP</title>
+<title>Conta de terceiros - PJ</title>
 <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADDUlEQVR4nO1Zy2oUQRRtfC1c+lj5+ABXQs+9TlYDVW1w4XZQdOnadWICBg1ksjdhIn6CqAsTQQX/QdEPMLoyiWiqZuhxHiW3cGZ0ppOu6q7uHmEuFAx00XNO1X2ce9vzpja1qaU2Va0ebXKYkQwXJMNnksMnyeG74PiLFv2WHD/qZwwXGgGW1ZJ3xCvamrOlC4LjquDwVXJUNktw+CIY1hoVPJ878P1rl88KBo8Fw5Yt8DEiDFuCY32/4p/JBbwI4JZksJcW+NhiuCvYlZuZAVe+f1xwfOIcOB9zrQ36L7fgr/snBcdXWYOXQxJb9J8uTz438HLoUm9V9dKJ1ATycBt54E1gPSV4uF0UeDkgUbqRCPxPDqclx52iCUgGe4lSLOX5wsHzQTysW4Gn6mhVpIKyat69YwxI7w3K5m7EsNUM/Ivmp89x1QZ8+/WmUt2uCmtLsfvDh/eU6nRU+90bJWdnbEjUjMCTyCKdYgW+bzEk+uD71rYgQXqLRGMsAa0qLVzhb0DaOh0VLi+Og19ejNzbtHC9BvMxloCWxBYBFj6YHwc2chOjJz/Ys3LfLpgDmDfx/+dWL40h4Qw8pwVP42+AGg/rFx9AotfVYN2AR6oJHwxcKLlUjiThCjzXayfehVI2KZrE6Knr2+ilBa8EwzB7AuTzkQTM6oRMSyCVC0UFbERgZ+pCMmkQR4Hv9aKDOCkJZhDEidLoIanSpE5Ip2nUtpAZ5HlnJBjMxRKgodPESgleAjMxx3A7sZg7JFWO3kSbxNxVM1ktGH42nuaRdE0kpw3yfJ+EDXipCcCKEfgJbWjCBiufMyagb4Fj3SrAMl3wyLO1H7PlU5PR1ONu4rkpzSqLJiAYVhOBH5DgsFGg66x5aY36UMHhRf4nD5uqUjmWmsBwuAtbObrNS2fD3ZEhbw6ZCdacnXyU0awyk+zE8FvqgLWamzJcpwLjwF1CyvOUtr28jaojyQ5j7fQv8G2SB9YVNgsjkUVDJ5rbkGanxoM6O/0BjySJ7vLg/Z9nc6QqJ+Iz69Sm5v3/9htwCyTCs1agAgAAAABJRU5ErkJggg==" type="image/x-icon">
 <style>
   body {
@@ -37,15 +37,6 @@
     color: #666;
     font-size: 14px; /* Reduzindo o tamanho do texto das etiquetas */
   }
-  select {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
   input, textarea {
     width: 100%;
     padding: 8px; /* Reduzindo o preenchimento dos campos de entrada */
@@ -103,7 +94,11 @@
     margin-bottom: 2px;
 }
 
-  textarea {
+  .hidden {
+    display: none;
+  }
+
+  #textoResultado {
     width: 100%;
     padding: 8px;
     margin-top: 10px;
@@ -126,7 +121,7 @@
   }
 
   .mensagemCopiado {
-    position:fixed ;
+    position:fixed;
     display: none;
     background-color: rgb(69, 148, 69);
     color: #fff;
@@ -134,7 +129,7 @@
     border-color: #fff;
     border-spacing: 10px;
     padding: 2px 104px 5px 104px;
-    margin: 0 0 1400px 0;
+    margin: 0px 0px 800px 0px;
     font-weight: 600;
     font-size: 15pt;
     z-index: 9999;
@@ -145,34 +140,16 @@
 <body>
 
 <div class="container">
-  <h1>Tarefa SAP</h1>
+  <h1>Conta de terceiros - PJ</h1>
 
-  <label for="canal">Canal:</label>
-  <input type="text" id="canal" placeholder="Digite o canal">
-
-  <label for="dataAbertura">Data de Abertura:</label>
-  <input type="date" id="dataAbertura">
-
-  <label for="favorecido">Favorecido:</label>
-  <input type="text" id="favorecido" placeholder="Digite o nome do favorecido">
-
-  <label for="cpfFavorecido">CPF do favorecido:</label>
-  <input type="text" id="cpfFavorecido" placeholder="Digite o número do CPF do favorecido">
- 
-  <label for="titular">Titular do seguro:</label>
-  <input type="text" id="titular" placeholder="Digite o nome do titular do seguro">
-
-  <label for="cpfTitular">CPF do titular:</label>
-  <input type="text" id="cpfTitular" placeholder="Digite o número do CPF do titular">
-
-  <label for="apolice">Apólice:</label>
-  <input type="text" id="apolice" placeholder="Digite o número da apólice">
+  <label for="certificado">Certificado:</label>
+  <input type="text" id="certificado" placeholder="Digite o número do certificado">
 
   <label for="produto">Produto:</label>
   <input type="text" id="produto" placeholder="Digite o nome do produto">
 
-  <label for="certificado">Certificado:</label>
-  <input type="text" id="certificado" placeholder="Digite o número do certificado">
+  <label for="dataCancelamento">Data de Cancelamento:</label>
+  <input type="date" id="dataCancelamento">
 
   <label for="valorDevido">Valor Devido:</label>
   <input type="text" id="valorDevido" placeholder="Digite o valor devido">
@@ -181,15 +158,6 @@
     <input type="checkbox" id="proporcionalCheckbox" class="checkbox-input">
     Proporcional
   </label>
-
-  <label for="parcela">Parcela:</label>
-    <input type="number" id="parcela" placeholder="Digite o número da parcela">
-
-  <select title="motivo" id="motivo">
-    <option value="Bilhete cancelado - Restituição após cancelamento">Bilhete cancelado</option>
-    <option value="Erro SIAS">Erro SIAS</option>
-    <option value="Conta de terceiros">Conta de terceiros</option>
-  </select>
   
   <label for="banco">Banco:</label>
   <input type="number" id="banco">
@@ -197,20 +165,8 @@
   <label for="agencia">Agência:</label>
   <input type="text" id="agencia" placeholder="Digite o número da agência">
 
-  <label for="operacao">Operação :</label>
-  <select id="operacao">
-    <option value="001">001</option>
-    <option value="003">003</option>
-    <option value="013">013</option>
-    <option value="1288">1288</option>
-    <option value="3701">3701</option>
-</select>
-
   <label for="conta">Conta:</label>
   <input type="text" id="conta" placeholder="Digite o número da conta">
-
-  <label for="digito">Dígito da conta:</label>
-  <input type="text" id="digito" placeholder="Digite o dígito da conta">
 
   <button onclick="gerarTexto()">Gerar Texto</button>
 
@@ -226,18 +182,17 @@
 
 <script>
 
-  function preencherDataAbertura() {
-    var dataAberturaInput = document.getElementById("dataAbertura");
+  function preencherDataCancelamento() {
+    var dataCancelamentoInput = document.getElementById("dataCancelamento");
     var dataAtual = new Date();
     var dia = String(dataAtual.getDate()).padStart(2, '0');
     var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
     var ano = dataAtual.getFullYear();
     var dataAtualFormatada = ano + '-' + mes + '-' + dia;
-    dataAberturaInput.value = dataAtualFormatada;
+    dataCancelamentoInput.value = dataAtualFormatada;
   }
 
-  preencherDataAbertura();
-
+  preencherDataCancelamento();
 
   function preencherBanco() {
     var bancoInput = document.getElementById("banco");
@@ -247,58 +202,32 @@
   preencherBanco();
 
   function gerarTexto() {
-    var canal = document.getElementById("canal").value;
-    var favorecido = document.getElementById("favorecido").value;
-    var cpfFavorecido = document.getElementById("cpfFavorecido").value;
-    var titular = document.getElementById("titular").value;
-    var cpfTitular = document.getElementById("cpfTitular").value; 
-    var apolice = document.getElementById("apolice").value;
-    var produto = document.getElementById("produto").value;
     var certificado = document.getElementById("certificado").value;
+    var produto = document.getElementById("produto").value;
+    var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
+    var dataCancelamento = new Date(dataCancelamentoInput + "T00:00:00");
     var valorDevido = document.getElementById("valorDevido").value;
-    var parcela = document.getElementById("parcela").value;
-    var motivo = document.getElementById("motivo").value;
     var banco = document.getElementById("banco").value;
     var agencia = document.getElementById("agencia").value;
-    var operacao = document.getElementById("operacao").value; 
     var conta = document.getElementById("conta").value;
-    var digito = document.getElementById("digito").value;
     var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
 
-    var dataAberturaInput = document.getElementById("dataAbertura").value;
-    var dataAbertura = new Date(dataAberturaInput + "T00:00:00");
-    var dia = String(dataAbertura.getDate()).padStart(2, '0');
-    var mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
-    var ano = dataAbertura.getFullYear();
-    var dataAberturaFormatada = dia + '/' + mes + '/' + ano;
+    var dia = String(dataCancelamento.getDate()).padStart(2, '0');
+    var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
+    var ano = dataCancelamento.getFullYear();
+    var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
 
-    var texto = `Solicitação/Tarefa: 
-Canal: ${canal}
-Abertura: ${dataAberturaFormatada}
-
-Favorecido: ${favorecido}
-CPF: ${cpfFavorecido}
-Titular do seguro: ${titular}
-CPF: ${cpfTitular}
-
-Apólice: ${apolice}
-Produto: ${produto}
-Certificado: ${certificado}
-Valor à restituir R$ ${valorDevido} ${proporcionalCheckbox ? "(proporcional)" : ""}
-Parcela nº: ${parcela}
-
-Motivo: ${motivo}
-
-Dados bancários;
-
-Banco: ${banco}
-Ag: ${agencia}
-Op: ${operacao}
-Conta: ${conta}-${digito}
-`;
+    var texto = "Olá, tudo bem?\n\n";
+    texto += "O seu seguro com certificado " + certificado + ", do produto " + produto + " foi cancelado. ";
+    texto += "A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ", sendo devido o pagamento da restituição";
+    if (proporcionalCheckbox) {
+      texto += " proporcional";
+    }
+    texto += " no valor de R$ " + valorDevido + ". \n\n";
+    texto += "Informamos que a conta existente atualmente em nossos registros possui a operação 003 (conta jurídica), o que impede a restituição neste momento. Assim, para que seja possível efetuar a restituição, referente ao cancelamento do seu seguro, pedimos que nos informe a Razão Social e o CNPJ da empresa titular da conta de origem do débito no Banco "+ banco +", agência " + agencia + ", conta " + conta + ".\n\n";
+    texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
 
     document.getElementById("textoResultado").value = texto;
-
   }
 
   function copiarTexto() {
@@ -312,38 +241,29 @@ Conta: ${conta}-${digito}
     copiedMessage.style.display = "inline";
     copiedMessage.classList.add("fade-in");
 
-    document.getElementById("textoResultado").value = "";
-
     // Ocultar a mensagem após a conclusão da animação
     setTimeout(function() {
         copiedMessage.classList.remove("fade-in");
         setTimeout(function() {
             copiedMessage.style.display = "none";
         }, 500); // Tempo da animação em milissegundos
-    }, 3000); // Tempo da animação em milissegundos
+    }, 500); // Tempo da animação em milissegundos
 
     // Limpar os campos de entrada após copiar o texto
-    document.getElementById("canal").value = "";
-    document.getElementById("favorecido").value = "";
-    document.getElementById("cpfFavorecido").value = "";
-    document.getElementById("titular").value = "";
-    document.getElementById("cpfTitular").value = "";
-    document.getElementById("apolice").value = "";
-    document.getElementById("produto").value = "";
     document.getElementById("certificado").value = "";
+    document.getElementById("produto").value = "";
     document.getElementById("valorDevido").value = "";
-    document.getElementById("parcela").value = "";
     document.getElementById("agencia").value = "";
-    document.getElementById("conta").value = "";
-    document.getElementById("parcela").value = "";    
+    document.getElementById("conta").value = "";  
 
     // Desmarcar a checkbox
     document.getElementById("proporcionalCheckbox").checked = false;
 
-
+    // Limpar campo da resposta
+    document.getElementById("textoResultado").value = "";
 
     // Preencher a data de cancelamento com a data atual
-    preencherDataAbertura();
+    preencherDataCancelamento();
 
     // Preencher o banco por padrão com o código 104
     preencherBanco();

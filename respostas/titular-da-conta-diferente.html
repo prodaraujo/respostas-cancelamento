@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conta inválida</title>
+<title>Titular da conta diferente</title>
 <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADDUlEQVR4nO1Zy2oUQRRtfC1c+lj5+ABXQs+9TlYDVW1w4XZQdOnadWICBg1ksjdhIn6CqAsTQQX/QdEPMLoyiWiqZuhxHiW3cGZ0ppOu6q7uHmEuFAx00XNO1X2ce9vzpja1qaU2Va0ebXKYkQwXJMNnksMnyeG74PiLFv2WHD/qZwwXGgGW1ZJ3xCvamrOlC4LjquDwVXJUNktw+CIY1hoVPJ878P1rl88KBo8Fw5Yt8DEiDFuCY32/4p/JBbwI4JZksJcW+NhiuCvYlZuZAVe+f1xwfOIcOB9zrQ36L7fgr/snBcdXWYOXQxJb9J8uTz438HLoUm9V9dKJ1ATycBt54E1gPSV4uF0UeDkgUbqRCPxPDqclx52iCUgGe4lSLOX5wsHzQTysW4Gn6mhVpIKyat69YwxI7w3K5m7EsNUM/Ivmp89x1QZ8+/WmUt2uCmtLsfvDh/eU6nRU+90bJWdnbEjUjMCTyCKdYgW+bzEk+uD71rYgQXqLRGMsAa0qLVzhb0DaOh0VLi+Og19ejNzbtHC9BvMxloCWxBYBFj6YHwc2chOjJz/Ys3LfLpgDmDfx/+dWL40h4Qw8pwVP42+AGg/rFx9AotfVYN2AR6oJHwxcKLlUjiThCjzXayfehVI2KZrE6Knr2+ilBa8EwzB7AuTzkQTM6oRMSyCVC0UFbERgZ+pCMmkQR4Hv9aKDOCkJZhDEidLoIanSpE5Ip2nUtpAZ5HlnJBjMxRKgodPESgleAjMxx3A7sZg7JFWO3kSbxNxVM1ktGH42nuaRdE0kpw3yfJ+EDXipCcCKEfgJbWjCBiufMyagb4Fj3SrAMl3wyLO1H7PlU5PR1ONu4rkpzSqLJiAYVhOBH5DgsFGg66x5aY36UMHhRf4nD5uqUjmWmsBwuAtbObrNS2fD3ZEhbw6ZCdacnXyU0awyk+zE8FvqgLWamzJcpwLjwF1CyvOUtr28jaojyQ5j7fQv8G2SB9YVNgsjkUVDJ5rbkGanxoM6O/0BjySJ7vLg/Z9nc6QqJ+Iz69Sm5v3/9htwCyTCs1agAgAAAABJRU5ErkJggg==" type="image/x-icon">
 <style>
   body {
@@ -94,6 +94,10 @@
     margin-bottom: 2px;
 }
 
+  .hidden {
+    display: none;
+  }
+
   #textoResultado {
     width: 100%;
     padding: 8px;
@@ -117,26 +121,26 @@
   }
 
   .mensagemCopiado {
-    position: fixed;
-    top: 10px;
-    right: 50%;
-    transform: translateX(50%);
+    position:fixed;
+    display: none;
     background-color: rgb(69, 148, 69);
     color: #fff;
     border-radius: 2px;
-    padding: 10px;
+    border-color: #fff;
+    border-spacing: 10px;
+    padding: 2px 104px 5px 104px;
+    margin: 0 0 400px 0;
     font-weight: 600;
     font-size: 15pt;
-    display: none;
     z-index: 9999;
-    transition: opacity 0.5s ease-in-out;
+    animation: fade-in 0.5s ease-out; /* Adicionando a animação */
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Conta inválida</h1>
+  <h1>Titular da conta diferente</h1>
 
   <label for="certificado">Certificado:</label>
   <input type="text" id="certificado" placeholder="Digite o número do certificado">
@@ -144,16 +148,8 @@
   <label for="produto">Produto:</label>
   <input type="text" id="produto" placeholder="Digite o nome do produto">
 
-  <label for="dataCancelamento">Data de Cancelamento:</label>
-  <input type="date" id="dataCancelamento">
-
-  <label for="valorDevido">Valor Devido:</label>
-  <input type="text" id="valorDevido" placeholder="Digite o valor devido">
-
-  <label class="checkbox-label" for="proporcionalCheckbox">
-    <input type="checkbox" id="proporcionalCheckbox" class="checkbox-input">
-    Proporcional
-  </label>
+  <label for="titularSeguro">Titular do seguro:</label>
+  <input type="text" id="titularSeguro" placeholder="Digite o nome do titular">
 
   <button onclick="gerarTexto()">Gerar Texto</button>
 
@@ -169,38 +165,15 @@
 
 <script>
 
-  function preencherDataCancelamento() {
-    var dataCancelamentoInput = document.getElementById("dataCancelamento");
-    var dataAtual = new Date();
-    var dia = String(dataAtual.getDate()).padStart(2, '0');
-    var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
-    var ano = dataAtual.getFullYear();
-    var dataAtualFormatada = ano + '-' + mes + '-' + dia;
-    dataCancelamentoInput.value = dataAtualFormatada;
-  }
-
-  preencherDataCancelamento();
-
   function gerarTexto() {
     var certificado = document.getElementById("certificado").value;
     var produto = document.getElementById("produto").value;
-    var dataCancelamentoInput = document.getElementById("dataCancelamento").value;
-    var dataCancelamento = new Date(dataCancelamentoInput + "T00:00:00");
-    var valorDevido = document.getElementById("valorDevido").value;
-    var proporcionalCheckbox = document.getElementById("proporcionalCheckbox").checked;
+    var titularSeguro = document.getElementById("titularSeguro").value;
 
-    var dia = String(dataCancelamento.getDate()).padStart(2, '0');
-    var mes = String(dataCancelamento.getMonth() + 1).padStart(2, '0');
-    var ano = dataCancelamento.getFullYear();
-    var dataCancelamentoFormatada = dia + '/' + mes + '/' + ano;
 
     var texto = "Olá, tudo bem?\n\n";
-    texto += "O seu seguro com certificado " + certificado + ", do produto " + produto + " foi cancelado.\n\n";
-    texto += "A efetivação do cancelamento se deu em " + dataCancelamentoFormatada + ". Informamos que o titular tem uma restituição";
-    if (proporcionalCheckbox) {
-      texto += " proporcional";
-    }
-    texto += " no valor de R$ " + valorDevido + " porém é necessário informar uma conta em sua titularidade podendo ser corrente ou poupança (Caixa Econômica Federal) ou somente corrente em caso de outros bancos. Em caso de conta conjunta/ terceiros faz-se necessário o nome, CPF, data de nascimento e o endereço completo do 1º titular da conta.\n\n"
+    texto += "O seguro "+ produto +", certificado "+ certificado +" pertence a "+ titularSeguro +". Para que o cancelamento seja efetuado, é necessário que o próprio segurado entre em contato com a Central de Serviço e Relacionamento nº 0800 702 4000, e solicite o cancelamento via gravação vocal.\n\n"
+
     texto += "Caso tenha ficado com alguma dúvida, entre em contato com a nossa Central de Serviços e Relacionamento. Teremos o maior prazer em atendê-lo(a)!";
 
     document.getElementById("textoResultado").value = texto;
@@ -214,8 +187,8 @@
 
     // Exibir a mensagem de copiado com a classe de animação
     var copiedMessage = document.getElementById("copiedMessage");
-    copiedMessage.style.display = "inline"; // Definindo o estilo de exibição como block
-    copiedMessage.classList.add("fade-in"); // Adicionando a classe de animação
+    copiedMessage.style.display = "inline";
+    copiedMessage.classList.add("fade-in");
 
     // Ocultar a mensagem após a conclusão da animação
     setTimeout(function() {
@@ -223,22 +196,17 @@
         setTimeout(function() {
             copiedMessage.style.display = "none";
         }, 500); // Tempo da animação em milissegundos
-      }, 500); // Tempo da animação em milissegundos
+    }, 500); // Tempo da animação em milissegundos
 
     // Limpar os campos de entrada após copiar o texto
     document.getElementById("certificado").value = "";
     document.getElementById("produto").value = "";
-    document.getElementById("valorDevido").value = "";    
-
-    // Desmarcar a checkbox
-    document.getElementById("proporcionalCheckbox").checked = false;
+    document.getElementById("titularSeguro").value = ""; 
 
     // Limpar campo da resposta
     document.getElementById("textoResultado").value = "";
 
-    // Preencher a data de cancelamento com a data atual
-    preencherDataCancelamento();
-  } 
+  }
 </script>
 </body>
 </html>
